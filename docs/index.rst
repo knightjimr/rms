@@ -3,6 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. toctree::
+   Installation and Configuration
+   Getting Started - Hello World!
+   :maxdepth: 2
+
 RMS - Run My Samples
 ====================
 
@@ -40,15 +45,7 @@ in the spreadsheet data), then you can run rms as follows: ::
 and RMS will execute the three commands "mycommand myfile1", "mycommand myfile2" and "mycommand myfile3"
 across your cluster, without you having to worry about qsub's and queues and jobs.
 
-.. toctree::
-   :maxdepth: 2
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+The best place to get started is with the :doc:`installation` text, because you likely will need to add
+a configuration file describing your cluster, even if the RMS software has been installed already.
+The :doc:`hello` document will let you test the software on your cluster and see another simple RMS example.
+Then, the rest of the documents go contain more examples and go into detail about RMS scripts and running RMS.
