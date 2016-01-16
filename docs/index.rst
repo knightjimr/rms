@@ -38,7 +38,7 @@ then you can run rms as follows: ::
    rms myscript.rms myfiles.txt
 
 and RMS will execute the three commands "mycommand myfile1", "mycommand myfile2" and "mycommand myfile3"
-across your cluster, without you having to worry about qsub's and queues and jobs.
+across your cluster, handling all of the details of cluster jobs and queues and qsub's.
 
 The best place to get started is with :doc:`installation`, because you likely will need to add
 a configuration file describing your cluster, even if the RMS software has been installed already.
