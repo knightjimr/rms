@@ -16,11 +16,29 @@ And, calling it a language overstates the case just a bit.  It really consists o
 syntax to organize the Bash, Perl, Python or R scripts of a pipeline, along with fill-in-the-blank
 “template elements” that are replaced when creating the executed commands.  You write the pipeline
 steps in any combination of the four languages (whatever best fits each step’s implementation),
-and the syntax is designed so that language-specific editors will ignore the RMS elements of the
-scripts, allowing you to use your favorite editor tools to do your pipeline development.
+and include the template elements (whose syntax is designed so that language-specific editors will
+ignore the RMS-specific parts of the script).
 
+So, for example, if you have the following file 'myfiles.txt': ::
 
-Contents:
+   File
+   myfile1
+   myfile2
+   myfile3
+
+containing the names of three files plus a column header on the first line, and have the following RMS
+script 'myscript.rms': ::
+
+   #### runTheFiles File -
+   mycommand <File>
+
+(where the first line is an RMS line saying to execute the lines below as a command, and do that for each "File"
+in the spreadsheet data), then you can run rms as follows: ::
+
+   rms myscript.rms myfiles.txt
+
+and RMS will execute the three commands "mycommand myfile1", "mycommand myfile2" and "mycommand myfile3"
+across your cluster, without you having to worry about qsub's and queues and jobs.
 
 .. toctree::
    :maxdepth: 2
