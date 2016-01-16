@@ -4,8 +4,8 @@
    contain the root `toctree` directive.
 
 .. toctree::
-   Installation and Configuration
-   Getting Started - Hello World!
+   :doc:`install`
+   :doc:`hello`
    :maxdepth: 2
 
 RMS - Run My Samples
