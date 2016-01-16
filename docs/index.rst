@@ -4,9 +4,10 @@
    contain the root `toctree` directive.
 
 .. toctree::
-   :doc:`install`
-   :doc:`hello`
    :maxdepth: 2
+
+   installation
+   hello
 
 RMS - Run My Samples
 ====================
