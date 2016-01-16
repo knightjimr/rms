@@ -28,7 +28,7 @@ header on the first line, ::
    myfile3
 
 and have the following RMS script 'myscript.rms', where the first line is an RMS line saying to execute the
-lines below as a command, and do that for each "File" in the spreadsheet data, ::
+lines below as a command (and to execute that for each "File" in the spreadsheet data), ::
 
    #### runTheFiles File -
    mycommand <File>
