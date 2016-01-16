@@ -15,9 +15,9 @@ computer or across a cluster.
 And, calling it a language overstates the case just a bit.  It really consists of a little extra
 syntax to organize the Bash, Perl, Python or R scripts of a pipeline, along with fill-in-the-blank
 “template elements” that are replaced when creating the executed commands.  You write the pipeline
-steps in any combination of the four languages (whatever best fits each step’s implementation),
-and include the template elements (whose syntax is designed so that language-specific editors will
-ignore the RMS-specific parts of the script).
+steps in any combination of the four languages, include the RMS lines and template elements, and then
+run RMS with the script and the spreadsheet data as you would any program.  It handles all of the details
+of creating, queueing and running jobs across the cluster.
 
 For example, if you have the file 'myfiles.txt', containing the names of three files plus a column
 header on the first line, ::
