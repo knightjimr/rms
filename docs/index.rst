@@ -3,12 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. toctree::
-   :maxdepth: 2
-
-   installation
-   hello
-
 RMS - Run My Samples
 ====================
 
@@ -49,4 +43,11 @@ across your cluster, without you having to worry about qsub's and queues and job
 The best place to get started is with the :doc:`installation` text, because you likely will need to add
 a configuration file describing your cluster, even if the RMS software has been installed already.
 The :doc:`hello` document will let you test the software on your cluster and see another simple RMS example.
-Then, the rest of the documents go contain more examples and go into detail about RMS scripts and running RMS.
+Then, the rest of the documents contain more examples and go into detail about RMS scripts and running RMS.
+
+.. toctree::
+   :maxdepth: 2
+
+   installation
+   hello
+
