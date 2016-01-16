@@ -19,21 +19,21 @@ steps in any combination of the four languages (whatever best fits each step’s
 and include the template elements (whose syntax is designed so that language-specific editors will
 ignore the RMS-specific parts of the script).
 
-So, for example, if you have the following file 'myfiles.txt': ::
+For example, if you have the file 'myfiles.txt', containing the names of three files plus a column
+header on the first line, ::
 
    File
    myfile1
    myfile2
    myfile3
 
-containing the names of three files plus a column header on the first line, and have the following RMS
-script 'myscript.rms': ::
+and have the following RMS script 'myscript.rms', where the first line is an RMS line saying to execute the
+lines below as a command, and do that for each "File" in the spreadsheet data, ::
 
    #### runTheFiles File -
    mycommand <File>
 
-(where the first line is an RMS line saying to execute the lines below as a command, and do that for each "File"
-in the spreadsheet data), then you can run rms as follows: ::
+then you can run rms as follows: ::
 
    rms myscript.rms myfiles.txt
 
