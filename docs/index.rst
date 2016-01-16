@@ -46,7 +46,7 @@ a configuration file describing your cluster, even if the RMS software has been 
 Then, the rest of the documents contain more examples and go into detail about RMS scripts and running RMS.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    Home <index>
    installation
