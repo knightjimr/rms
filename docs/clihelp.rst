@@ -18,7 +18,9 @@ occurs: ::
        rms myscript [options] sheet...
 
 where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see the online
-help files for more details), and the following options are supported.
+help files for more details).
+
+The following options tell RMS where to execute the script commands:
 
 -t, --test                              Test the script for syntax errors (by compiling only)
 -s, --single                            Run the script sequentially on the current computer
@@ -26,18 +28,8 @@ help files for more details), and the following options are supported.
 -c, --cluster                           Execute the script across the cluster
                                         [default mode:  cluster]
 
--S step, --start step                   Start the pipeline with step "step" (skipping initial steps)
--E step, --end step                     End the pipeline with step "step" (skipping later steps)
--O step, --only step                    Only run step "step"  (equivalent to "-S step -E step")
-
--f, --force                             Ignore existing files and force the pipeline commands to run
-
--o dir, --output=dir                   Set the output directory (and current working directory for the
-                                        script) to "dir".    [default:  .]
--l prefix, --log=prefix                 Log the script execution stdout and stderr to "prefix.stdout" and
-                                        "prefix.stderr".  Passing "-" outputs the execution stdout/stderr
-                                        to the command's stdout/stderr.
-                                        [default:  RMS_myscript_YMD_HMS]
+In parallel and cluster mode, the number of cluster compute nodes or number of cores can be set using these
+options (to limit how many commands execute in parallel):
 
 -n N, --num=N                           Limit for the number of nodes to use (cluster mode) or the number of
                                         cores to use (parallel mode)
@@ -45,6 +37,20 @@ help files for more details), and the following options are supported.
                                         (cluster mode only, 0 specifies no limit)
                                         [parallel default:  Number of cores of computer]
                                         [cluster default:  "default" queue, no limit]
+
+-S step, --start step                   Start the pipeline with step "step" (skipping initial steps)
+-E step, --end step                     End the pipeline with step "step" (skipping later steps)
+-O step, --only step                    Only run step "step"  (equivalent to "-S step -E step")
+
+
+-o dir, --output=dir                   Set the output directory (and current working directory for the
+                                        script) to "dir".    [default:  .]
+-l prefix, --log=prefix                 Log the script execution stdout and stderr to "prefix.stdout" and
+                                        "prefix.stderr".  Passing "-" outputs the execution stdout/stderr
+                                        to the command's stdout/stderr.
+                                        [default:  RMS_myscript_YMD_HMS]
+-f, --force                             Ignore existing files and force the pipeline commands to run
+
 
 When the command-line explicitly begins with "rms", as in "rms [options] myscript ...", all
 of the above options may be specified between "rms" and "myscript" (so that you can specify the
