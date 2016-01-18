@@ -32,7 +32,7 @@ help files for more details), and the following options are supported.
 
 -f, --force                             Ignore existing files and force the pipeline commands to run
 
--o dir,  --output=dir                   Set the output directory (and current working directory for the
+-o dir, --output=dir                   Set the output directory (and current working directory for the
                                         script) to "dir".    [default:  .]
 -l prefix, --log=prefix                 Log the script execution stdout and stderr to "prefix.stdout" and
                                         "prefix.stderr".  Passing "-" outputs the execution stdout/stderr
