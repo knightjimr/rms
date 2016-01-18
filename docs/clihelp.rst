@@ -20,37 +20,39 @@ occurs: ::
 where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see the online
 help files for more details).
 
-The following options tell RMS where to execute the script commands:
+The following options tell RMS where to execute the script commands [default mode: cluster]:
 
 -t, --test                              Test the script for syntax errors (by compiling only)
 -s, --single                            Run the script sequentially on the current computer
 -p, --parallel                          Execute the script just on the current computer (like GNU parallel)
 -c, --cluster                           Execute the script across the cluster
-                                        [default mode:  cluster]
 
 In parallel and cluster mode, the number of cluster compute nodes or number of cores can be set using these
-options (to limit how many commands execute in parallel):
+options, to limit how many commands are executed at the same time [parallel default: 0, cluster default:
+defined in ~/.rmsrc file, or "default:0" if no ~/.rmsrc file]:
 
 -n N, --num=N                           Limit for the number of nodes to use (cluster mode) or the number of
-                                        cores to use (parallel mode)
--n queue[:N],..., --num=queue[:N],...   The queues to use and, optionally, node limits for each queue
-                                        (cluster mode only, 0 specifies no limit)
-                                        [parallel default:  Number of cores of computer]
-                                        [cluster default:  "default" queue, no limit]
+                                        cores to use (parallel mode), where 0 specifies no limit.
+-n queuestr, --num=queuestr             The queues to use and node limits for each queue, as a comma-separated
+                                        list of "queue[:N]" strings (queue name, plus optional number limit).  For
+                                        example "default:6,highcore:4" says use 6 nodes of the default queue
+                                        and 4 nodes of the highcore queue.
+
+These options limit the steps that are executed (so that a part of the script can be run, instead of the whole script):
 
 -S step, --start step                   Start the pipeline with step "step" (skipping initial steps)
 -E step, --end step                     End the pipeline with step "step" (skipping later steps)
 -O step, --only step                    Only run step "step"  (equivalent to "-S step -E step")
 
+And these options provide additional miscellaneous functions:
 
--o dir, --output=dir                   Set the output directory (and current working directory for the
+-f, --force                             Ignore existing files and force the pipeline commands to run
+-o dir, --output=dir                    Set the output directory (and current working directory for the
                                         script) to "dir".    [default:  .]
 -l prefix, --log=prefix                 Log the script execution stdout and stderr to "prefix.stdout" and
                                         "prefix.stderr".  Passing "-" outputs the execution stdout/stderr
                                         to the command's stdout/stderr.
                                         [default:  RMS_myscript_YMD_HMS]
--f, --force                             Ignore existing files and force the pipeline commands to run
-
 
 When the command-line explicitly begins with "rms", as in "rms [options] myscript ...", all
 of the above options may be specified between "rms" and "myscript" (so that you can specify the
