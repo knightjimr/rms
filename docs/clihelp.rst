@@ -2,29 +2,31 @@
 Command-Line Help Text
 ======================
 
-Usage: rmsScript [conditional processing]
-       rms [options] rmsScript [conditional processing]
+Usage: ::
 
-   RMS executes pipeline scripts on the current machine or across a cluster.  Similar to perl
-   and python, the script can be run either as "rms myscript ..." or just "myscript" (if the
-   first line of the script file is "#!/usr/bin/env rms").
+   rmsScript [conditional processing]
+   rms [options] rmsScript [conditional processing]
 
-   The command line arguments after the script file are "conditionally processed", meaning that if
-   the script defines command line processing, the arguments are processed by the script.  If the
-   script does not define command line processing, the following default command line processing
-   occurs:
+RMS executes pipeline scripts on the current machine or across a cluster.  Similar to perl
+and python, the script can be run either as "rms myscript ..." or just "myscript" (if the
+first line of the script file is "#!/usr/bin/env rms").
+
+The command line arguments after the script file are "conditionally processed", meaning that if
+the script defines command line processing, the arguments are processed by the script.  If the
+script does not define command line processing, the following default command line processing
+occurs: ::
 
        myscript [options] sheet...
        rms myscript [options] sheet...
 
-    where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see the online
-    help files for more details), and the following options are supported.
+where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see the online
+help files for more details), and the following options are supported.
 
-       * -t or --test:  Test the script for syntax errors (by compiling only)
-       * -s or --single:   Run the script sequentially on the current computer
-       * -p or --parallel:  Execute the script just on the current computer (like GNU parallel)
-       * -c or --cluster:  Execute the script across the cluster
-              [default mode:  cluster]
+  -t, --test              Test the script for syntax errors (by compiling only)
+  -s, --single            Run the script sequentially on the current computer
+  -p, --parallel          Execute the script just on the current computer (like GNU parallel)
+  -c, --cluster           Execute the script across the cluster
+                          [default mode:  cluster]
 
        * -S step  or --start step:  Start the pipeline with step "step" (skipping initial steps)
        * -E step  or --end step:    End the pipeline with step "step" (skipping later steps)
