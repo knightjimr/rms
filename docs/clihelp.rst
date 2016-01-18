@@ -34,11 +34,11 @@ defined in ~/.rmsrc file, or "default:0" if no ~/.rmsrc file]:
 -n N, --num=N                           Limit for the number of nodes to use (cluster mode) or the number of
                                         cores to use (parallel mode), where 0 specifies no limit.
 -n queuestr, --num=queuestr             The queues to use and node limits for each queue, as a comma-separated
-                                        list of "queue[:N]" strings (queue name, plus optional number limit).  For
-                                        example "default:6,highcore:4" says use 6 nodes of the default queue
-                                        and 4 nodes of the highcore queue.
+                                        list of "queue[:N]" strings (queue name, plus optional number limit).
 
-These options limit the steps that are executed (so that a part of the script can be run, instead of the whole script):
+For example "-n default:6,highcore:4" says use 6 nodes of the default queue and 4 nodes of the highcore queue,
+if needed.  The following options limit the steps that are executed (so that a part of the script can be run,
+instead of the whole script):
 
 -S step, --start step                   Start the pipeline with step "step" (skipping initial steps)
 -E step, --end step                     End the pipeline with step "step" (skipping later steps)
