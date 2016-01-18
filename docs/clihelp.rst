@@ -39,9 +39,9 @@ help files for more details), and the following options are supported.
                                         to the command's stdout/stderr.
                                         [default:  RMS_myscript_YMD_HMS]
 
--n #, --num=#                           Limit for the number of nodes to use (cluster mode) or the number of
+-n \#, --num=\#                           Limit for the number of nodes to use (cluster mode) or the number of
                                         cores to use (parallel mode)
--n queue[:#],..., --num=queue[:#],...   The queues to use and, optionally, node limits for each queue
+-n queue[:\#],..., --num=queue[:\#],...   The queues to use and, optionally, node limits for each queue
                                         (cluster mode only, 0 specifies no limit)
                                         [parallel default:  Number of cores of computer]
                                         [cluster default:  "default" queue, no limit]
