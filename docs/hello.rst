@@ -8,10 +8,10 @@ for the scripts are shown below, so it also gives several examples of simple RMS
 
 The first script to run is hello1, which tests your access to RMS.  The example here just uses "a b c d" as
 the arguments on the command-line, but the script can take any text as arguments.  When you run hello1, the
-results should appear similar to this (where text in bold is the command-line, and "$" is the command-line
-prompt): ::
+results should appear similar to this ("$" is the command-line prompt, and the text after it is the command
+that was run): ::
 
-   :emphasis:`$ hello1 a b c d`
+   $ hello1 a b c d
    Hello a!
    Hello b!
    Hello c!
@@ -22,7 +22,7 @@ The hello1 script just runs on the current computer, not across the cluster.  Th
 generates equivalent output, but it executes across the cluster.  Running it should generate the following
 output: ::
 
-   **$ hello2 a b c d**
+   $ hello2 a b c d
    Hello a, from the cluster!
    Hello b, from the cluster!
    Hello c, from the cluster!
@@ -50,7 +50,7 @@ in the form that you will typically see when you run RMS with your own scripts. 
 display output similar to the following (where the lines similar to those in italics should appear on
 the screen as the scripts are run across the cluster, as progress messages about the computation): ::
 
-   **$ hello3 a b c d**
+   $ hello3 a b c d
    Sheet Input:  4 rows, 1 columns.
    Commands:  5 commands to be executed.
    [Tue Jan 19, 4:22pm]:Pipeline execution starting.
