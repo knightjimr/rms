@@ -32,9 +32,8 @@ The two most important lines of the script are the two that begin with "#### ": 
    #### helloAll all -
 
 Any line beginning with
-exactly four '#' followed by a space are RMS "step divider" lines, and they mark the beginning of each
-step of the pipeline script.  The format of those lines is "#### name column exists", each separated by
-spaces, where
+exactly four '#' followed by a space is an RMS "step divider" line, and it marks the beginning of each
+step of the pipeline script.  The format of those lines is "#### name column exists", where
 
     * "name" is the name of the step, and can be any string.  These names will be displayed in the
       progress messages that appear when a script is running.
@@ -45,9 +44,9 @@ spaces, where
       a name or path is given, that name/path is tested to see if it exists in the filesystem.  If
       it does, then that command is skipped during the execution.
 
-So, the two lines in the above script specify the two steps of the pipeline, one called "hello" which
+So, the two lines in the above script specify the two steps of the pipeline, one named "hello" which
 is executed for each value in the "Arg"
-column of the spreadsheet data, and one called "helloAll" which is executed once (i.e., for all of the
+column of the spreadsheet data, and one named "helloAll" which is executed once (i.e., for all of the
 spreadsheet data).
 
 The lines after each of the step divider lines are the lines that are executed in the commands for
@@ -87,11 +86,10 @@ behavior of RMS when it runs:  ::
    echo "Said hello to all of the arguments from the cluster!"
 
 In this script, the added line "##option=--log=-" is another RMS header section line, which sets
-RMS command-line options.  In this case, the string "--log=-" is an RMS option that sets the logging
-file for the command stdout and stderr, and setting --log to "-" tells RMS to direct the command
-stdout and stderr to its stdout and stderr.  So, in this case, the same commands are executed, but the
-output is not logged to the RMS_hello2_*.stdout and RMS_hello2_*.stderr files, they are output (in order)
-to the screen.
+RMS command-line options.  In this case, the string "--log=-" is an RMS option that tells RMS where to write each
+command's stdout and stderr text.  Setting --log to "-" tells RMS to direct the stdout and stderr of the
+commands it runs to the stdout and stderr of the RMS program.  As a result, hello2 executes the same commands
+as hello3, but the command output is written (in order) to the screen.
 
 The final script, hello1, is essentially the same as hello2, but it sets one additional RMS option, "-s",
 telling RMS to perform a sequential execution of the commands on the current computer, instead of running
@@ -110,8 +108,8 @@ across the cluster: ::
 
    echo "Said hello to all of the arguments!"
 
-(plus the text of the echo commands is slightly different).  All of the RMS options are described in
-:doc:`cmdline`.
+(plus the text of the echo commands is slightly different).  For more information on the RMS command-line options,
+see :doc:`clihelp`.
 
 Finally, the script that implements "Hello World!" is the following: ::
 
