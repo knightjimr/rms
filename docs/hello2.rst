@@ -3,7 +3,7 @@ Getting Started - Hello World!, part 2
 ======================================
 
 Okay, so technically, none of the three hello scripts from :doc:`hello1` implement a true "Hello World!" script.
-The main reason for that is that most pipeline scripts will involve more than one computational step, and
+The main reason for that is that most RMS scripts will involve more than one computational step, and
 so the hello scripts give an example of how to do that.  Second, the correct "Hello World!" involves
 setting two RMS options to change its default behavior, and so it requires a bit more explanation.  The real
 "Hello World!" script is shown at the bottom of this page.
@@ -28,7 +28,7 @@ executed, and given the script to run.
 
 The two most important lines of the script are the two that begin with "#### ": ::
 
-   #### hello arg -
+   #### hello Arg -
    #### helloAll all -
 
 Any line beginning with
@@ -50,11 +50,15 @@ is executed for each value in the "Arg"
 column of the spreadsheet data, and one called "helloAll" which is executed once (i.e., for all of the
 spreadsheet data).
 
-The lines after each of the step divider lines, are the lines that are executed in the commands for
+The lines after each of the step divider lines are the lines that are executed in the commands for
 the step, and can be written in bash, perl, python or R.  Here, they are written in bash (the default),
 and just use the echo command to write text to standard output.
 
-The one unusual part of the first echo line is the "<Arg>" string appearing on the fourth line.  That
+The one unusual part of the first echo line is the "<Arg>" string appearing on the fourth line. ::
+
+   echo "Hello <Arg>, from the cluster!"
+
+That
 is an RMS "template element", which RMS replaces as it creates the executable command. The basic
 format for a template element is "<column>" where "column" is a column header name from the spreadsheet
 data.

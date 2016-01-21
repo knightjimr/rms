@@ -37,7 +37,9 @@ defined in ~/.rmsrc file, or "default:0" if no ~/.rmsrc file]:
                                         list of "queue[:N]" strings (queue name, plus optional number limit).
 
 For example "-n default:6,highcore:4" says use 6 nodes of the default queue and 4 nodes of the highcore queue,
-if needed.  The following options limit the steps that are executed (so that a part of the script can be run,
+if needed.
+
+The following options limit the steps that are executed (so that a part of the script can be run,
 instead of the whole script):
 
 -S step, --start step                   Start the pipeline with step "step" (skipping initial steps)
