@@ -2,11 +2,11 @@
 Getting Started - Hello World!, part 2
 ======================================
 
-Okay, so technically, none of the three hello scripts from doc:`hello1` implement a true "Hello World!" script.
+Okay, so technically, none of the three hello scripts from :doc:`hello1` implement a true "Hello World!" script.
 The main reason for that is that most pipeline scripts will involve more than one computational step, and
 so the hello scripts give an example of how to do that.  Second, the correct "Hello World!" involves
-setting two RMS options to change its default behavior, and so it requires a bit more explanation.  That
-script is shown at the bottom of this page.
+setting two RMS options to change its default behavior, and so it requires a bit more explanation.  The real
+"Hello World!" script is shown at the bottom of this page.
 
 The simplest of the three hello scripts is actually hello3, and that script is the following: ::
 
@@ -22,11 +22,16 @@ The simplest of the three hello scripts is actually hello3, and that script is t
 
    echo "Said hello to all of the arguments from the cluster!"
 
-The first line of this script is the standard shell script shebang line used for Perl or Python scripts to
-have them be directly executable.  In this case, the RMS command "rms" is executed, and given the script
-to run.
+The first line of this script is the standard shell script shebang line used to make the file directly
+executable, just as can be done with Perl or Python scripts.  In this case, the RMS command "rms" is
+executed, and given the script to run.
 
-The two most important lines of the script are the two that begin with "#### ".  Any line beginning with
+The two most important lines of the script are the two that begin with "#### ": ::
+
+   #### hello arg -
+   #### helloAll all -
+
+Any line beginning with
 exactly four '#' followed by a space are RMS "step divider" lines, and they mark the beginning of each
 step of the pipeline script.  The format of those lines is "#### name column exists", each separated by
 spaces, where
@@ -40,12 +45,8 @@ spaces, where
       a name or path is given, that name/path is tested to see if it exists in the filesystem.  If
       it does, then that command is skipped during the execution.
 
-So, the two lines in the above script  ::
-
-   #### hello arg -
-   #### helloAll all -
-
-specify the two steps of the pipeline, one called "hello" which is executed for each value in the "Arg"
+So, the two lines in the above script specify the two steps of the pipeline, one called "hello" which
+is executed for each value in the "Arg"
 column of the spreadsheet data, and one called "helloAll" which is executed once (i.e., for all of the
 spreadsheet data).
 

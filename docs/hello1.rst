@@ -67,7 +67,7 @@ across the cluster, to show the progress messages about the computation): ::
    [Wed Jan 20, 11:46am]:     helloAll[1]: 0q,1r,0f,0c
    [Wed Jan 20, 11:46am]:Pipeline execution completed.
 
-In this output, "hello" and "goodbye" are the names of the two steps in the hello3 RMS script, the number in
+In this output, "hello" and "helloAll" are the names of the two steps in the hello3 RMS script, the number in
 brackets is the count of how many commands of that step will run (4 hello commands and 1 goodbye command), and
 the abbreviation 'q' stands for queued, 'r' stands for running, 'f' stands for failed and 'c' stands
 for completed.  These progress message lines display the currently queued and running commands, giving
@@ -75,7 +75,7 @@ a real-time view of how the computation is executing across the cluster, and whe
 it has made any progress recently.
 
 Whenever rms is executed in this mode (and this is the default execution mode), rms writes two files,
-in this case RMS_hello3_YYMMDD_HHMMSS.stdout and RME_hello3_YYMMDD_HHMMSS.stderr (where "YYMMDD" and
+in this case RMS_hello3_YYMMDD_HHMMSS.stdout and RMS_hello3_YYMMDD_HHMMSS.stderr (where "YYMMDD" and
 "HHMMSS" are the date and time when the script was started).  They contain the ordered standard output
 and standard error text from the scripts, output in the order the commands would be run if they were
 executed sequentially, regardless of the order they were actually executed across the cluster. So, if
