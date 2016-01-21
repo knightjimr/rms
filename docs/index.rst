@@ -42,7 +42,7 @@ across your cluster, handling all of the details of cluster jobs and queues and 
 
 The best place to get started is with :doc:`installation`, because you likely will need to add
 a configuration file describing your cluster, even if the RMS software has been installed already.
-:doc:`hello` will let you test the software on your cluster and see another simple RMS example.
+:doc:`hello1` will let you test the software on your cluster and see another simple RMS example.
 Then, the rest of the documents contain more examples and go into detail about RMS scripts and running RMS.
 
 
@@ -50,6 +50,7 @@ Then, the rest of the documents contain more examples and go into detail about R
    :maxdepth: 1
 
    installation
-   hello
+   hello1
+   hello2
    clihelp
 
