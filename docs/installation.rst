@@ -96,3 +96,28 @@ contract the number of compute nodes used, based on the commands ready to be run
    tmp
       This defines the location of the local tmp space on a compute node.  [default:  /tmp]
 
+Supported Clusters
+------------------
+
+The software is setup to handle a number of different job schedulers, but not all are supported
+(because I don't have access to clusters with other schedulers to test the functionality).  The
+list of supported clusters is the following (listed by the value to use for the "type" property
+above):
+
+   torque
+      The PBS-Torque job scheduler, which is the default.
+   lsf
+      The Platform LSF job scheduler.
+
+The list of schedulers that the software is ready to support, but has not been tested, is the
+following:
+
+   pbs
+      The PBS job scheduler.
+   slurm
+      The SLURM job scheduler.
+   sge
+      The SunGrid Engine job scheduler.
+
+If you are willing to help test one of these schedulers, or have a different job scheduler on
+your cluster, please contact knightjimr@gmail.com.
