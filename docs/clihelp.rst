@@ -14,11 +14,11 @@ the script defines command line processing, the arguments are processed by the s
 script does not define command line processing, the following default command line processing
 occurs: ::
 
-       myscript [options] sheet...
-       rms myscript [options] sheet...
+       myscript sheet...
+       rms [options] myscript sheet...
 
-where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see the online
-help files for more details).
+where "sheet" is one or more tab-, comma- or space-delimited spreadsheet files (see 
+:doc:`scriptbasic` for more details).
 
 The following options tell RMS where to execute the script commands [default mode: cluster]:
 
@@ -36,8 +36,8 @@ defined in ~/.rmsrc file, or "default:0" if no ~/.rmsrc file]:
 -n queuestr, --num=queuestr             The queues to use and node limits for each queue, as a comma-separated
                                         list of "queue[:N]" strings (queue name, plus optional number limit).
 
-For example "-n default:6,highcore:4" says use 6 nodes of the default queue and 4 nodes of the highcore queue,
-if needed.
+For example "-n default:6,highcore:4" tells RMS it can use up to 6 nodes of the default queue and
+4 nodes of the highcore queue, if needed.
 
 The following options limit the steps that are executed (so that a part of the script can be run,
 instead of the whole script):
