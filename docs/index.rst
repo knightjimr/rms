@@ -52,5 +52,6 @@ Then, the rest of the documents contain more examples and go into detail about R
    installation
    hello1
    hello2
+   scriptbasics
    clihelp
 
