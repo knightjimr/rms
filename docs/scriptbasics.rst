@@ -138,10 +138,9 @@ and it will get loaded before the lines of the "index" script execute.
 
 Environment sections are also used for Python, Perl or R scripts.  When RMS creates an executable command, it
 creates a bash script that contains (1) RMS initialization lines, (2) the environment section lines and (3)
-xxx.  For RMS steps whose language is bash, RMS just added those lines to the bash script. For the other
-languages, those lines are written to a language-specific script, and the bash script contains a launcher
-to run that language-specfic script.  So, regardless of the language of the step, the environment section
-will be loaded for the commands of that step.
+a language-specific body.  For RMS steps whose language is bash, RMS just adds the lines from the RMS step directly
+into the bash script.  For the other languages, the bash script contains a launcher which runs python, perl or
+Rscript on a file containing the lines from the RMS step.
 
 Step Section
 ------------
