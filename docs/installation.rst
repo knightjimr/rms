@@ -26,6 +26,19 @@ different setup, and many of the resource limit rules are not detectable automat
 you need to do is learn what job queues you can submit jobs to, and what, if any, resource limits there are.
 Hopefully, if you've been using the cluster for a while, you should know much of this information.
 
+Another helpful thing to do with some clusters may be to test out the resource limit options using interactive
+jobs, to see what options ensure that you get compute node resources quickly.  The documentation for one cluster
+I tried out said they had 20 core compute nodes, and said they kill jobs after 24 hours.  When I started trying
+those options with
+interactive jobs, I found setting the time limit to 24 hours was fine, but trying ask for 20 cores on a single
+host caused the job to just sit in the queue.  When I changed it to 10 cores, I was able to get my jobs running
+quickly.  Setting
+your resource limits so that jobs start quickly will allow RMS to start on your computations quickly, and then
+be able to ramp up quickly when the cluster is not busy.
+
+Defining the Cluster
+^^^^^^^^^^^^^^^^^^^^
+
 The way to tell RMS about the cluster is through an ".rmsrc" file.  RMS will look first at the "RMSRC"
 environment variable, then look for the file "$HOME/.rmsrc" in your home directory.  If it does not find
 either, it assumes that the cluster has a PBS-Torque scheduler, with a "default" queue that can be used
@@ -96,8 +109,8 @@ contract the number of compute nodes used, based on the commands ready to be run
    tmp
       This defines the location of the local tmp space on a compute node.  [default:  /tmp]
 
-Supported Clusters
-------------------
+Supported Job Schedulers
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 The software is setup to handle a number of different job schedulers, but not all are supported
 (because I don't have access to clusters with other schedulers to test the functionality).  The
@@ -121,3 +134,28 @@ following:
 
 If you are willing to help test one of these schedulers, or have a different job scheduler on
 your cluster, please contact knightjimr@gmail.com.
+
+Aliases
+^^^^^^^
+
+Because of some of the complexities of interactive vs. non-interactive bash shells, any aliases that
+you've defined in your ~/.bashrc file cannot be used in RMS scripts (trying to work around that actually
+caused more initialization errors for more peoples' scripts).  RMS automatically sets the "expand_aliases"
+option at the beginning of every bash script it runs, so even if your version of bash disables aliases
+by default, they can be used anywhere in the bash sections of RMS scripts.  However, trying to use an
+alias defined in the ~/.bashrc file will not.
+
+To support those aliases, RMS has adopted the "standard" workaround that other software uses.  RMS looks for
+and loads a file ~/.alias at the beginning of each shell script, if that file exists.  So, if you have
+defined aliases in your ~/.bash_profile or ~/.bashrc file that you would like to use in RMS scripts, copy
+those aliases into ~/.alias, and then add the following lines to your ~/.bashrc script: ::
+
+   if [ -f ~/.alias ]; then
+      . ~/.alias
+   fi
+
+(and possibly your ~/.bash_profile, if that script does not have the standard lines which load your
+~/.bashrc file every time it runs.)
+
+Note that some bash shell have alias expansion turned on by default, in which case this may not be necessary
+(I don't currently have access to such a machine, so I have not tested it).

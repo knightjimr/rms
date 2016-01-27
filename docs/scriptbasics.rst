@@ -114,7 +114,7 @@ Environment Section
 -------------------
 
 Many clusters don't support the inheritance of environment variables (PATH, PWD, ...) for the jobs that are
-submitted, so the commands that RMS execute across the cluster may not begin
+submitted, so the commands that RMS executes across the cluster may not begin
 with the environment values that exist when you execute the RMS command.  RMS takes care of loading your 
 ~/.bash_profile and ~/.bashrc files (so, no need for "source ~/.bashrc" in your scripts),
 and also sets the current working directory for the command to be the same as when you started the RMS command
@@ -140,7 +140,7 @@ found for each execution of the command:  ::
     #### index file -
     samtools index <file>
 
-or, if your system has the module software, you can just put "module samtools-1.2" in the environment section,
+or, if your system has the module software, you can just put "module load samtools/1.2" in the environment section,
 and it will get loaded before the lines of the "index" script execute.
 
 Environment sections are also used for Python, Perl or R scripts.  When RMS creates an executable command, it
