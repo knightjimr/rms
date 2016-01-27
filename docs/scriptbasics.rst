@@ -85,7 +85,7 @@ a RMS directive line, and is not a comment line beginning with "#", then RMS ass
 contains a script, and will pass it the command-line arguments for processing.
 
 What this header section script needs to do is to output RMS directive lines on its standard output, which is
-piped into RMS (when it executes the script) to define the input for the program.  For example, a Python
+piped into RMS to define the input for the program.  For example, a Python
 script which implements the "##argv=Arg" functionality is the following: ::
 
    ##python
@@ -101,9 +101,9 @@ script which implements the "##argv=Arg" functionality is the following: ::
    print "EOF"
 
 The first line of this script is "##python", telling RMS that the language for the script is Python (there is
-also "##perl", "##R" and "##bash" for those languages, although the default is bash, so "##bash is not
-necessary).  The rest of the script is Python code which outputs the line for a "##sheet" directive, defining
-a one-column spreadsheet (with column header "Arg") containing the command-line arguments.
+also "##perl", "##R" and "##bash" for those languages).  The rest of the script is Python code which outputs
+the line for a "##sheet" directive, defining a one-column spreadsheet (with column header "Arg") containing
+the command-line arguments.
 
 Any functionality is permitted in this script.  You can also read files, use subprocess to call commands,
 whatever is necessary to parse the command-line arguments and generate the spreadsheet data and options
@@ -113,11 +113,12 @@ the execution.
 Environment Section
 -------------------
 
-Just as with cluster jobs that you submit, the commands that RMS execute across the cluster do not begin
-with the environment (PATH, LD_LIBRARY_PATH, ...) values that exist when you execute the RMS command, as
-many clusters do not support inheriting the environment variables.  RMS takes case of loading your .bash_profile
-and .bashrc files for the commands (no need for "source ~/.bashrc" in your scripts), and also ensures that
-the command executes from the same current working directory as when you started the RMS command (so, no need
+Many clusters don't support the inheritance of environment variables (PATH, PWD, ...) for the jobs that are
+submitted, so the commands that RMS execute across the cluster may not begin
+with the environment values that exist when you execute the RMS command.  RMS takes care of loading your 
+~/.bash_profile and ~/.bashrc files (so, no need for "source ~/.bashrc" in your scripts),
+and also sets the current working directory for the command to be the same as when you started the RMS command
+(so, no need
 for "cd /my/hardcoded/starting/directory" in your scripts either).  But, it may not have the other
 environment variables, and, in particular for writing scripts to be run by other users, there may not be
 an assurance that the software you want to run in the RMS script is already setup in the users' environment.
