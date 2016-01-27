@@ -72,7 +72,8 @@ and the four most common directives that can be included in the header are the f
 
 The full set of header directives is described in :doc:`scriptdetails`.  Each of these directive lines must
 occur at the beginning of the line, and must be of the form "##name", 
-"##name=value" or "##name=(...)", and may not contain spaces, except between the parentheses.  The reason for
+"##name=value" or "##name=(...)", and may not contain spaces, except between the parentheses or the quotes.
+The reason for
 this is to limit the interference the RMS line format may have with real Python or Perl program comment lines,
 so that they are not mistaken for RMS lines.  
 
@@ -106,16 +107,18 @@ the line for a "##sheet" directive, defining a one-column spreadsheet (with colu
 the command-line arguments.
 
 Any functionality is permitted in this script.  You can also read files, use subprocess to call commands,
-whatever is necessary to parse the command-line arguments and generate the spreadsheet data and options
-to be used in the RMS execution).  Once this script terminates, RMS will process the directives and begin
-the execution.
+whatever is necessary to parse the command-line arguments and output the spreadsheet data and options
+to be used in the RMS execution (on its standard output).  Once this script terminates, RMS will process
+the directives and begin the execution.
 
 Environment Section
 -------------------
 
 Many clusters don't support the inheritance of environment variables (PATH, PWD, ...) for the jobs that are
 submitted, so the commands that RMS executes across the cluster may not begin
-with the environment values that exist when you execute the RMS command.  RMS takes care of loading your 
+with the environment values that exist when you execute the RMS command.
+
+RMS takes care of loading your 
 ~/.bash_profile and ~/.bashrc files (so, no need for "source ~/.bashrc" in your scripts),
 and also sets the current working directory for the command to be the same as when you started the RMS command
 (so, no need
@@ -140,8 +143,8 @@ found for each execution of the command:  ::
     #### index file -
     samtools index <file>
 
-or, if your system has the module software, you can just put "module load samtools/1.2" in the environment section,
-and it will get loaded before the lines of the "index" script execute.
+whatever lines you would normally put at the beginning of a bash script to setup the environment can be put
+here, and it will get loaded at the beginning of every command execution.
 
 Environment sections are also used for Python, Perl or R scripts.  When RMS creates an executable command, it
 creates a bash script that contains (1) RMS initialization lines, (2) the environment section lines and (3)
@@ -152,3 +155,4 @@ Rscript on a file containing the lines from the RMS step.
 Step Section
 ------------
 
+To be completed...
