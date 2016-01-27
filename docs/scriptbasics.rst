@@ -76,6 +76,9 @@ occur at the beginning of the line, and must be of the form "##name",
 this is to limit the interference the RMS line format may have with real Python or Perl program comment lines,
 so that they are not mistaken for RMS lines.  
 
+Header Script
+^^^^^^^^^^^^^
+
 The header section may also contain a bash, Python, Perl or R script, which is used to allow the script to
 process the command-line arguments, instead of RMS.  If there is at least one line in the header that is not
 a RMS directive line, and is not a comment line beginning with "#", then RMS assumes that the header

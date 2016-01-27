@@ -8,6 +8,9 @@ so the hello scripts give an example of how to do that.  Second, the correct "He
 setting two RMS options to change its default behavior, and so it requires a bit more explanation.  The real
 "Hello World!" script is shown at the bottom of this page.
 
+Hello3 Script
+-------------
+
 The simplest of the three hello scripts is actually hello3, and that script is the following: ::
 
    #!/usr/bin/env rms
@@ -70,6 +73,9 @@ spreadsheet out of the command-line arguments, and use "column" as the column he
 More details of the syntax and structure of RMS scripts can be found in :doc:`scriptbasics` and 
 :doc:`scriptdetails`.
 
+Hello2 Script
+-------------
+
 The script hello2 is very similar to that of hello3, but it contains one extra line, used to adjust the
 behavior of RMS when it runs:  ::
 
@@ -92,6 +98,9 @@ command's stdout and stderr text.  Setting --log to "-" tells RMS to direct the 
 commands it runs to the stdout and stderr of the RMS program.  As a result, hello2 executes the same commands
 as hello3, but the command output is written (in order) to the screen.
 
+Hello1 Script
+-------------
+
 The final script, hello1, is essentially the same as hello2, but it sets one additional RMS option, "-s",
 telling RMS to perform a sequential execution of the commands on the current computer, instead of running
 across the cluster: ::
@@ -111,6 +120,9 @@ across the cluster: ::
 
 (plus the text of the echo commands is slightly different).  For more information on the RMS command-line options,
 see :doc:`clihelp`.
+
+Hello World! Script
+-------------------
 
 Finally, the script that implements "Hello World!" is the following: ::
 
