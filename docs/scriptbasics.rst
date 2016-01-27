@@ -57,7 +57,9 @@ and the four most common directives that can be included in the header are the f
 
 * The "option" directive to pass RMS command-line options.  These options will be parsed as would options
   actually occurring on the command-line, however options found on the command-line will override options
-  given in the RMS script header.
+  given in the RMS script header. ::
+
+     ##option="-s --log=-"
 
 * User-defined, name-value lines of the form "##name=( values )", where the "name" can then be used in
   template elements in the script, and are replaced with the value or values found within the parentheses.
@@ -68,10 +70,11 @@ and the four most common directives that can be included in the header are the f
      ##genome=( hg19 )
      ##kmer=( 10 12 14 16 18 20 22 24 26 28 30 )
 
-Each of these directive lines must occur at the beginning of the line, and must be of the form "##name", 
-"##name=value" or "##name=(...)", and may not contain spaces, except between the parentheses (this is
-to limit the interference with real Python or Perl program comment lines, so that they are not mistaken
-for RMS lines).  The full set of header directives is described in :doc:`scriptdetails`.
+The full set of header directives is described in :doc:`scriptdetails`.  Each of these directive lines must
+occur at the beginning of the line, and must be of the form "##name", 
+"##name=value" or "##name=(...)", and may not contain spaces, except between the parentheses.  The reason for
+this is to limit the interference the RMS line format may have with real Python or Perl program comment lines,
+so that they are not mistaken for RMS lines.  
 
 The header section may also contain a bash, Python, Perl or R script, which is used to allow the script to
 process the command-line arguments, instead of RMS.  If there is at least one line in the header that is not

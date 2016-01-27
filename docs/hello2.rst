@@ -67,7 +67,8 @@ In an RMS script, header text before the first step divider line can be used to 
 arguments, and, in the header, a line of the form "##argv=column" tells RMS to make a single column
 spreadsheet out of the command-line arguments, and use "column" as the column header for that spreadsheet.
 
-More details of the syntax and structure of RMS scripts can be found in :doc:`format` and :doc:`format2`.
+More details of the syntax and structure of RMS scripts can be found in :doc:`scriptbasics` and 
+:doc:`scriptdetails`.
 
 The script hello2 is very similar to that of hello3, but it contains one extra line, used to adjust the
 behavior of RMS when it runs:  ::

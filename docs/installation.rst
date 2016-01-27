@@ -35,7 +35,7 @@ The .rmsrc file contains "name=value" lines that let you define the job queues, 
 values for RMS.  The supported lines are the following:
 
    mode=value
-      This sets the default RMS running mode to "type", where "type" can be "test", "single",
+      This sets the default RMS running mode to "value", where "value" can be "test", "single",
       "parallel" or "cluster".  So, if you don't have a cluster, and just want to use RMS on
       your current computer, add "mode=parallel" to the .rmsrc file.
    queue=name options
