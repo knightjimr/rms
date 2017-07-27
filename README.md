@@ -13,13 +13,13 @@ Documentation for the tool can be found at http://rms.readthedocs.io.
 
 To install the software, download the latest stable release, untar it
 and then add that directory to your PATH.  The software is a pure
-python implementation, with no dependencies.  It was developed suing
+python implementation, with no dependencies.  It was developed using
 python 2.7, but should be compatible with 2.6+ and 3.* versions.
 
-After installation, configuring and testing the installation with the
-cluster is a little more work.  Follow the instructions in
-http://rms.readthedocs.io/en/latest/installation.html to configuring
-your cluster, and run the tests in
+After installation, configuring and testing with your cluster is a
+little more work.  Follow the instructions in
+http://rms.readthedocs.io/en/latest/installation.html to setup the
+configuration for your cluster, and run the tests in
 http://rms.readthedocs.io/en/latest/hello1.html to make sure it is
 working.
 
