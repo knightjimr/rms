@@ -1,7 +1,5 @@
-rms
-===
-
 RMS - Run My Samples
+====================
 
 RMS is a tool for writing/running computational pipelines on a
 computer or across a cluster.  It is more of a "cluster scripting
