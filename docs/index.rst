@@ -6,6 +6,8 @@
 RMS - Run My Samples
 ====================
 
+This is a test.
+
 RMS is a “cluster scripting language” and execution engine, making the creation of computational
 pipelines, and running them across a compute cluster, easy to do.  The software takes a templated
 RMS script plus spreadsheet data files, generates commands by using the spreadsheet data to fill in
@@ -38,7 +40,7 @@ then you can run rms as follows: ::
    rms myscript.rms myfiles.txt
 
 and RMS will execute the three commands "mycommand myfile1", "mycommand myfile2" and "mycommand
-myfile3" across your cluster, handling all of the details of cluster jobs and queues and qsub's.
+myfile3" across your cluster, handling all of the details of cluster queues and job submissions.
 
 The best place to get started is with :doc:`installation`, because you likely will need to add a
 configuration file describing your cluster, even if the RMS software has been installed already.
