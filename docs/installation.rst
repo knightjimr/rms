@@ -5,83 +5,82 @@ Installation and Configuration
 Installation
 ------------
 
-[Note:  The RMS software is not currently available on github, but will be once the documentation is completed.]
-
-RMS can be installed using the following command: ::
-
-   pip install git+https://www.github.com/knightjimr/rms
-
-or by simply cloning the package from github ::
-
-   git clone https://www.github.com/knightjimr/rms.git
-
-and adding the "rms" directory to your $PATH.  The software is a python implementation, with no dependencies.
-It was developed using python 2.7, but should be compatible with 2.6+ and 3.* versions.
+The software is available at https://github.com/knightjimr/rms, and the latest stable release is
+available at https://github.com/knightjimr/rms/releases.  No pip installation script is available,
+yet, so the easiest way to install is to download the release, untar it and then add the directory
+to your PATH environment variable.  The software is a pure python implementation, with no
+dependencies.  It was developed using python 2.7, but should be compatible with 2.6+ and 3.*
+versions.
 
 Configuration
 -------------
 
-Configuring RMS to use your cluster takes a little more work, because every cluster's job scheduler has a
-different setup, and many of the resource limit rules are not detectable automatically.  So, the first thing
-you need to do is learn what job queues you can submit jobs to, and what, if any, resource limits there are.
-Hopefully, if you've been using the cluster for a while, you should know much of this information.
+Configuring RMS to use your cluster takes a little more work, because every cluster's job scheduler
+has a different setup, and many of the resource limit rules are not detectable automatically.  So,
+the first thing you need to do is learn what job queues you can submit jobs to, and what, if any,
+resource limits there are.  Hopefully, if you've been using the cluster for a while, you should know
+much of this information.
 
-Another helpful thing to do with some clusters may be to test out the resource limit options using interactive
-jobs, to see what options ensure that you get compute node resources quickly.  The documentation for one cluster
-I tried out said they had 20 core compute nodes, and said they kill jobs after 24 hours.  When I started trying
-those options with
-interactive jobs, I found setting the time limit to 24 hours was fine, but trying ask for 20 cores on a single
-host caused the job to just sit in the queue.  When I changed it to 10 cores, I was able to get my jobs running
-quickly.  Setting
-your resource limits so that jobs start quickly will allow RMS to start on your computations quickly, and then
-be able to ramp up quickly when the cluster is not busy.
+Another helpful thing to do with some clusters may be to test out the resource limit options using
+interactive jobs, to see what options ensure that you get compute node resources quickly.  The
+documentation for one cluster I tried out said they had 20 core compute nodes, and said they kill
+jobs after 24 hours.  When I started trying those options with interactive jobs, I found setting the
+time limit to 24 hours was fine, but trying ask for 20 cores on a single host caused the job to just
+sit in the queue.  When I changed it to 10 cores, I was able to get my jobs running quickly.
+Setting your resource limits so that jobs start quickly will allow RMS to start on your computations
+quickly, and then be able to ramp up quickly when the cluster is not busy.
 
 Defining the Cluster
 ^^^^^^^^^^^^^^^^^^^^
 
-The way to tell RMS about the cluster is through an ".rmsrc" file.  RMS will look first at the "RMSRC"
-environment variable, then look for the file "$HOME/.rmsrc" in your home directory.  If it does not find
-either, it assumes that the cluster has a PBS-Torque scheduler, with a "default" queue that can be used
-to submit jobs.
+RMS first reads the file "RMSRC" in the same directory as the RMS software, to get the system-level
+configuration, then tries to read "~/.rmsrc" for any user changes to the configuration.  Similar to
+ulimit, user changes only reduce the resource limits defined in the system RMSRC, although there is
+an override option to allow a user to change the limits, regardless of what the system configuration
+is (at their own risk...since, if the resource limits don't match the actual cluster configuration,
+their jobs will just sit in the queue forever...).
 
-The .rmsrc file contains "name=value" lines that let you define the job queues, as well as some default option
-values for RMS.  The supported lines are the following:
+The RMSRC (or ~/.rmsrc) lines have the format "queueName option=value..." to define the job queues.
+For example, the first cluster I used was a PBS/Torque cluster with three job queues, "default",
+"highcore" and "bigmem", each with different configurations and where highcore and bigmem were to be
+used only when needed.  So, the RMSRC file for that cluster was the following: ::
 
-   mode=value
-      This sets the default RMS running mode to "value", where "value" can be "test", "single",
-      "parallel" or "cluster".  So, if you don't have a cluster, and just want to use RMS on
-      your current computer, add "mode=parallel" to the .rmsrc file.
-   queue=name options
-      This defines a job queue named "name", with one or more properties given in the 
-      "options" string (see below for the format of the options string).
+   default type=torque;cpulimit=100;ppn=8;default=true
+   bigmem type=torque;joblimit=4;ppn=64
+   highcore type=torque;ppn=48
 
-For example, the cluster that I use has four job queues, "default", "highcore", "bigmem" and "state", each with
-different configurations, and for my general work I should use the default queue, but can use the highcore and
-bigmem when necessary, and have the ability to use the state queue if I ask permission first.  So, my .rmsrc
-file looks like this: ::
+All were of type "torque", the default queue had a limit of 100 cores and had compute nodes with 8
+cores each.  The bigmem queue only allowed 4 jobs at a time and each compute node had 64 cores.  The
+highcore node had no resource limits, and had 48 cores per node.
 
-   queue=default use=true;type=torque;cpulimit=100;ppn=8
-   queue=state use=false;type=torque;ppn=16
-   queue=bigmem use=false;type=torque;joblimit=4;ppn=64
-   queue=highcore use=false;type=torque;ppn=48
+The current cluster is a Slurm cluster, with "general" and "scavenge" queues, each with a 300 core
+limit, with compute nodes that have 20 cores and 124GB of memory (where Slurm memory management is
+turned on, so you must request and stay within the memory limit or the job is killed), and a one
+week job time limit.  The RMSRC file for that is the following: ::
 
-The options string for each queue line contains a semi-colon separated list of "name=value" pairs, defining
-the properties of that queue.  The core properties that should be defined for each queue are the following:
+   general type=slurm;ppn=20;mem=124;cpulimit=300;walltime=168;wallbuffer=12;default=true
+   scavenge type=slurm;ppn=20;mem=124;cpulimit=300;walltime=168;wallbuffer=12
+
+The options string for each queue line contains a semi-colon separated list of "name=value" pairs,
+defining the properties of that queue.  The core properties that must be defined for each queue
+are the following:
 
    type
       This defines the type of the job scheduler (see below for the list of supported job schedulers
-      and their values).  [default:  torque]
+      and their values).
    ppn
       This defines how many cores to request when submitting an RMS worker to run on a compute node.
       RMS creates one long-lived worker for each compute node it uses, and passes multiple commands
       to that worker, so the ppn value should be the number of cores that the compute nodes in this
-      job queue have, not how many might be used in the RMS script steps.
-   use
-      This says whether to use this queue by default, if the list of queues is not defined by the
-      "-n" command-line option.  [default:  true]
+      job queue have, not how many might be used in the RMS script steps.  However, you can set this
+      to request only partial access to the nodes (i.e., 10 out of 20 cores), and RMS will only use
+      that proportion of the cores, memory and tmp space on the compute nodes.
+   default
+      This says whether to use this queue by default, if the list of queues is not explicitly named
+      in the "-n" command-line option.  [default:  false]
    
-In addition, there are a number of properties that can be used to define the resource limits for the
-queue.  RMS interacts with the job queue by submitting one job for one compute node, in order to run the RMS
+There are a number of properties that can be used to define the resource limits for the queue.  RMS
+interacts with the job queue by submitting one job for one compute node, in order to run the RMS
 worker process on that node (and will do that multiple times, as needed, so that RMS can expand and
 contract the number of compute nodes used, based on the commands ready to be run in the script).
 
@@ -94,6 +93,9 @@ contract the number of compute nodes used, based on the commands ready to be run
    nodelimit
       This defines the limit on the number of nodes that a user can submit to the queue.  RMS
       will only request at most this number of compute nodes.
+   mem
+      This defines the memory limit that a job can use.  This memory limit will be passed as an
+      option to the job scheduler (and be used as the limit for what can be run by the job).
    walltime
       This defines the time limit that a job can run, in hours.  This time limit will be passed
       as an option to the job scheduler.
@@ -106,8 +108,16 @@ contract the number of compute nodes used, based on the commands ready to be run
       hours, then stop sending commands at the 22 hour mark, and wait for that worker to die
       as soon as all of the executing commands are completed, or the worker is killed.
       (If more commands need to be run, new worker jobs will be submitted.)
-   tmp
-      This defines the location of the local tmp space on a compute node.  [default:  /tmp]
+   account
+      This defines the account to be passed as an option to the job scheduler.
+   queue
+      This defaults the actual cluster queue to be used to submit jobs, for this RMS "queue".
+      The use of this argument allows you to create multiple RMS "queues" for a single cluster
+      queue, in order to either use different numbers of cores or memory (if your cluster
+      has different kinds of compute nodes on the same queue) or use different accounts (if
+      your cluster has account processing and you have multiple accounts that can be used).
+      The value of this option can also be a previously defined RMS "queue", and will copy
+      the options set for that "queue" as the defaults for this "queue".
 
 Supported Job Schedulers
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -118,17 +128,17 @@ list of supported clusters is the following (listed by the value to use for the 
 above):
 
    torque
-      The PBS-Torque job scheduler, which is the default.
+      The PBS-Torque job scheduler.
    lsf
       The Platform LSF job scheduler.
+   slurm
+      The SLURM job scheduler.
 
 The list of schedulers that the software is ready to support, but has not been tested, is the
 following:
 
    pbs
       The PBS job scheduler.
-   slurm
-      The SLURM job scheduler.
    sge
       The SunGrid Engine job scheduler.
 
@@ -139,16 +149,17 @@ Aliases
 ^^^^^^^
 
 Because of some of the complexities of interactive vs. non-interactive bash shells, any aliases that
-you've defined in your ~/.bashrc file cannot be used in RMS scripts (trying to work around that actually
-caused more initialization errors for more peoples' scripts).  RMS automatically sets the "expand_aliases"
-option at the beginning of every bash script it runs, so even if your version of bash disables aliases
-by default, they can be used anywhere in the bash sections of RMS scripts.  However, trying to use an
-alias defined in the ~/.bashrc file will not.
+you've defined in your ~/.bashrc file cannot be used in RMS scripts (trying to work around that
+actually caused more initialization errors for more peoples' scripts).  RMS automatically sets the
+"expand_aliases" option at the beginning of every bash script it runs, so even if your version of
+bash disables aliases by default, they can be used anywhere in the bash sections of RMS scripts.
+However, trying to use an alias defined in the ~/.bashrc file will not.
 
-To support those aliases, RMS has adopted the "standard" workaround that other software uses.  RMS looks for
-and loads a file ~/.alias at the beginning of each shell script, if that file exists.  So, if you have
-defined aliases in your ~/.bash_profile or ~/.bashrc file that you would like to use in RMS scripts, copy
-those aliases into ~/.alias, and then add the following lines to your ~/.bashrc script: ::
+To support those aliases, RMS has adopted the "standard" workaround that other software uses.  RMS
+looks for and loads a file ~/.alias at the beginning of each shell script, if that file exists.  So,
+if you have defined aliases in your ~/.bash_profile or ~/.bashrc file that you would like to use in
+RMS scripts, copy those aliases into ~/.alias, and then add the following lines to your ~/.bashrc
+script: ::
 
    if [ -f ~/.alias ]; then
       . ~/.alias
@@ -157,5 +168,5 @@ those aliases into ~/.alias, and then add the following lines to your ~/.bashrc 
 (and possibly your ~/.bash_profile, if that script does not have the standard lines which load your
 ~/.bashrc file every time it runs.)
 
-Note that some bash shell have alias expansion turned on by default, in which case this may not be necessary
-(I don't currently have access to such a machine, so I have not tested it).
+Note that some bash shell have alias expansion turned on by default, in which case this may not be
+necessary (I don't currently have access to such a machine, so I have not tested it).
