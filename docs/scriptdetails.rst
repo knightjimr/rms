@@ -57,10 +57,10 @@ Step Divider Line
 
 Format structure
 
-   * "#### "
-   * "stepName"
-   * column or columns (comma-separated, no spaces allowed)
-   * Path or "-" for existence test (optional, single file only)
+* "#### "
+* "stepName"
+* column or columns (comma-separated, no spaces allowed)
+* Path or "-" for existence test (optional, single file only)
 
 Columns must be spreadsheet columns or variables.  Multiple columns allowed, separated by commas,
 no whitespace allowed, or the word "all" for all of the data.
@@ -118,7 +118,7 @@ Options can appear as comma-separated strings after the column name.
 * suffix="..." - add the given suffix after each value, whitespace permitted within quotes
 
 Examples of element replacement.  If the distinct values of column "sample" are the values "me", "my" and "mine",
-then the following template replacements occur
+then the following template replacements occur ::
 
    "ls <sample>" -> "ls me my mine"
    "rm <sample>.bam" -> "rm me my mine.bam"  (likely not what you want)
@@ -127,7 +127,7 @@ then the following template replacements occur
    "samples = [ <sample,quote='"',sep=", "> ]" -> "samples = [ "me", "my", "mine" ]"  (useful for python)
 
 Recursive replacement is supported, but each replacement operation occurs separately. If column "project"
-is defined as the single value "prj", then the following replacements occur:
+is defined as the single value "prj", then the following replacements occur: ::
 
    "ls <project>/<sample>.bam" -> "ls prj/me my mine.bam"  (likely not what you want...)
    "ls <project>/<sample,glob=True>.bam" -> "ls prj/me.bam prj/my.bam prj/mine.bam"
@@ -142,38 +142,38 @@ Language-Specific Template Element Tips
 For each of the four languages (bash, python, perl and R), here are examples of how you can (1)
 assign a template elements values to a variable, (2) perform an if test on a single value
 element and (3) loop over the values of a template element.  These should be helpful building
-blocks to communicating between RMS and the step script.
+blocks to communicating between RMS and the step script. ::
 
-PROJECT="<project>"
-echo $PROJECT
+   PROJECT="<project>"
+   echo $PROJECT
 
-SAMPLE=( <sample,quote='"'> )
-echo ${SAMPLE[1]}
+   SAMPLE=( <sample,quote='"'> )
+   echo ${SAMPLE[1]}
 
-if [ "<project>" == "prj" ] ; then
-   echo This is the prj project.
-else
-   echo This is not the prj project.
-fi
+   if [ "<project>" == "prj" ] ; then
+      echo This is the prj project.
+   else
+      echo This is not the prj project.
+   fi
 
-for sample in <sample,quote='"'> ; do
-   echo $sample
-done
+   for sample in <sample,quote='"'> ; do
+      echo $sample
+   done
 
 
-project = "<project>"
-print project
+   project = "<project>"
+   print project
 
-sample = [ <sample,quote='"',sep=','> ]
-print sample[0]
+   sample = [ <sample,quote='"',sep=','> ]
+   print sample[0]
 
-if "<project>" == "prj":
-   print "This is the prj project."
-else
-   print "This is not the prj project."
+   if "<project>" == "prj":
+      print "This is the prj project."
+   else
+      print "This is not the prj project."
 
-for sample in [ <sample,quote='"',sep=','> ]:
-    print sample
+   for sample in [ <sample,quote='"',sep=','> ]:
+      print sample
 
 
 
