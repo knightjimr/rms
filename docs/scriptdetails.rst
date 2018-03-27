@@ -77,7 +77,7 @@ Describe the resources for the step and/or set the options for the step's execut
 * ##ppn=... - number of cores needed by this step
 * ##io=... - maximum number of this step's commands to be run on a single node (for I/O limitations)
 * ##mem=... - GB of memory needed by this step
-* ##tmp=... - GB of local disk space neede by this step (number or 3x<path> string)
+* ##tmp=... - GB of local disk space needed by this step (number or 3x<path> string)
 * ##redo=... - number of times to retry the command on failure, with optional reset command
 * ##name=column if column=value - set a new RMS variable called "name" to be equal to the set of distinct values where "column=value" is True in the spreadsheet data
 * ##outline=... - limit number of lines reported from each command's stdout
@@ -142,7 +142,9 @@ Language-Specific Template Element Tips
 For each of the four languages (bash, python, perl and R), here are examples of how you can (1)
 assign a template elements values to a variable, (2) perform an if test on a single value
 element and (3) loop over the values of a template element.  These should be helpful building
-blocks to communicating between RMS and the step script. ::
+blocks to communicating between RMS and the step script.
+
+Bash script lines: ::
 
    PROJECT="<project>"
    echo $PROJECT
@@ -160,6 +162,7 @@ blocks to communicating between RMS and the step script. ::
       echo $sample
    done
 
+Python script lines: ::
 
    project = "<project>"
    print project
@@ -169,7 +172,7 @@ blocks to communicating between RMS and the step script. ::
 
    if "<project>" == "prj":
       print "This is the prj project."
-   else
+   else:
       print "This is not the prj project."
 
    for sample in [ <sample,quote='"',sep=','> ]:

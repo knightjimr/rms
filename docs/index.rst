@@ -54,5 +54,7 @@ running RMS.
    hello1
    hello2
    scriptbasics
+   scriptdetails
+   execution
    clihelp
 

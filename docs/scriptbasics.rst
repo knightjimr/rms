@@ -205,7 +205,7 @@ during the computation of the step commands, as well as telling RMS about the st
 parallelism/recovery.  
 
 There are four resource option lines, each of takes a number as its value (except for ##tmp, which
-may also take a path, see scriptdetails).  They are the following: ::
+may also take a path, see :doc:`scriptdetails`).  They are the following: ::
 
    ##ppn=5       [number of cores, default 1]
    ##io=3        [i/o concurrency limit, default no limit]
@@ -226,7 +226,7 @@ samtools sort command for a command you know is heavily I/O bound), making sure 
 least as many commands as cores on the compute node, i.e., like "rms -s sort.rms *.bam": ::
 
    ##argv=bam
-   #### sort bam -
+   #### sort bam
    ##io=3
    samtools sort <bam> > <bam>.sorted.bam
 
