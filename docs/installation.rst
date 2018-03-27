@@ -94,8 +94,8 @@ contract the number of compute nodes used, based on the commands ready to be run
       This defines the limit on the number of nodes that a user can submit to the queue.  RMS
       will only request at most this number of compute nodes.
    mem
-      This defines the memory limit that a job can use.  This memory limit will be passed as an
-      option to the job scheduler (and be used as the limit for what can be run by the job).
+      This defines the memory limit that a job can use, in gigabytes.  This memory limit will be
+      passed as an option to the job scheduler (and be used as the limit for what can be run by the job).
    walltime
       This defines the time limit that a job can run, in hours.  This time limit will be passed
       as an option to the job scheduler.
@@ -107,7 +107,7 @@ contract the number of compute nodes used, based on the commands ready to be run
       worker job with a time limit of 24 hours, send commands to that worker for the first 22
       hours, then stop sending commands at the 22 hour mark, and wait for that worker to die
       as soon as all of the executing commands are completed, or the worker is killed.
-      (If more commands need to be run, new worker jobs will be submitted.)
+      (If more commands need to be run, new worker jobs will be created.)
    account
       This defines the account to be passed as an option to the job scheduler.
    queue
@@ -168,5 +168,5 @@ script: ::
 (and possibly your ~/.bash_profile, if that script does not have the standard lines which load your
 ~/.bashrc file every time it runs.)
 
-Note that some bash shell have alias expansion turned on by default, in which case this may not be
+Note that some bash shells have alias expansion turned on by default, in which case this may not be
 necessary (I don't currently have access to such a machine, so I have not tested it).

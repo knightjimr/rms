@@ -201,19 +201,82 @@ Step Options
 ^^^^^^^^^^^^
 
 The step option lines are used to tell RMS what resources (cores, memory, tmp space) will be used
-during the computation of the step commands.  These are not hard limits, but help RMS run the
-commands on the compute nodes quickly and safely (too high a cpu load or too much I/O will slow your
-computation down significantly, using too much memory on a compute node has been the cause of nearly
-every "mysterious" crash of a cluster job, in my experience, and running out of disk space is
-usually an unrecoverable error...so making an effort to avoid these issues will make your script
-faster and more robust).
+during the computation of the step commands, as well as telling RMS about the step language and
+parallelism/recovery.  
 
-Example of file pattern
+There are four resource option lines, each of takes a number as its value (except for ##tmp, which
+may also take a path, see scriptdetails).  They are the following: ::
 
-Step option lines
-##ppn=
+   ##ppn=5       [number of cores, default 1]
+   ##io=3        [i/o concurrency limit, default no limit]
+   ##mem=40      [main memory limit in GB, default 10]
+   ##tmp=60      [tmp space limit in GB, default 10]
 
-Step lines, with template elements
+These are not hard limits, but help RMS run the commands on the compute nodes quickly and safely
+(too high a cpu load or too much I/O will slow your computation down significantly, using too much
+memory on a compute node has been the cause of nearly every "mysterious" crash of a cluster job, in
+my experience, and running out of disk space is usually an unrecoverable error...so making an effort
+to avoid these issues will make your script faster and more robust).
+
+The ##io limit restricts how many commands from the step can run at the same time on the same
+compute node, in order to avoid thrashing on the I/O channel (as the compute node tries to satisfy
+all of the reads and write the commands are making).  To get a sense of the problem, try running the
+following the script with and without the ##io line on a compute node (where you can substitute the
+samtools sort command for a command you know is heavily I/O bound), making sure you are running at
+least as many commands as cores on the compute node, i.e., like "rms -s sort.rms *.bam": ::
+
+   ##argv=bam
+   #### sort bam -
+   ##io=3
+   samtools sort <bam> > <bam>.sorted.bam
+
+Particularly with nodes that have 10-20 cores, the running time without the ##io line should be much
+longer than with (as the overall execution keeps within the capability of the compute node's and the
+NFS I/O hardware, so that the file contents can be served up efficiently).
+
+The other option lines commonly used are the lines defining the language for the step: ::
+
+   ##python, ##perl, ##R or ##bash
+
+as well as two option lines, ##after and ##redo, that allow for step parallelism and error
+recovery.  The "##after=..." takes a comma-separated list of step names (these steps must be defined
+earlier in the RMS script), and tells RMS that this step can execute immediately after those steps
+complete, instead of when the previous step in the script completes.  For example, the
+"scatter-gather" pattern can use step parallelism with a script as follows: ::
+
+   ...
+   #### step1 sample
+   ...
+
+   #### step2 sample,file
+   ...
+
+   #### step3 sample,file
+   ##after=step1
+   ...
+
+   #### step4 sample
+   ##after=step2,step3
+   ...
+
+(Note that this script performs both step parallelism, using the ##after option, and data
+parallelism, using "sample,file" column-based parallelism for step2 and step3.)
+
+The ##redo option line takes a value which is the number of times the command should be restarted
+afte an error, along with an optional command to run when restarting the command (i.e., to clean up
+temp files or reset necessary files/values):  ::
+
+   ##redo=1
+   ##redo=2;rm -f <sample>/tmp_*.bam
+
+RMS will restart any step command that failed to complete (i.e., returned a non-zero exit status).
+If the command fails the given number of times, the command will be considered as failed.
+
+Step Lines
+^^^^^^^^^^
+
+The remaining lines of the step 
+Step lines, with template elements and rms commands (rmssync, rmscp, rmslock).
 
 <column>
 <column,glob=True>

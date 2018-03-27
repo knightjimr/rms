@@ -6,8 +6,6 @@
 RMS - Run My Samples
 ====================
 
-This is a test.
-
 RMS is a “cluster scripting language” and execution engine, making the creation of computational
 pipelines, and running them across a compute cluster, easy to do.  The software takes a templated
 RMS script plus spreadsheet data files, generates commands by using the spreadsheet data to fill in
