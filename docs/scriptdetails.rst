@@ -1,6 +1,6 @@
 
-RMS Script Format
-=================
+Writing RMS Scripts - Details
+=============================
 
 Sections are:
 
