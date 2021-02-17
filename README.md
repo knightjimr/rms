@@ -9,8 +9,7 @@ used to generate commands.
 
 Documentation for the tool can be found at http://rms.readthedocs.io.
 
-To install the software, download the latest stable release, untar it and then add that directory to
-your PATH.  The software is a pure python implementation, with no dependencies.  It was developed
+The software is a pure python implementation, with no dependencies.  It was developed
 using python 2.7, but should be compatible with 2.6+ and 3.* versions.
 
 After installation, configuring and testing with your cluster is a little more work.  Follow the
